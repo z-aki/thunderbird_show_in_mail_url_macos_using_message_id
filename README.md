@@ -1,5 +1,7 @@
 # Thunderbird add Show in Mail URL to iOS/macOS Calendar
 
+https://addons.thunderbird.net/thunderbird/addon/message_id_url/
+
 The "show in mail" link in the iOS/ macOS calendar is a reference to the message ID.
 
 This extension gives the URL which can be added to an existing calendar event's URL field.
