@@ -1,0 +1,15 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const customUrlInput = document.getElementById("customUrlFormat");
+  const settingsForm = document.getElementById("settingsForm");
+
+  // Load saved custom URL format on page load
+  browser.storage.sync.get("customUrlFormat").then((data) => {
+    customUrlInput.value = data.customUrlFormat || "message:$$$";
+  });
+
+  // Save custom URL format on form submit
+  settingsForm.addEventListener("submit", async (event) => {
+    const urlFormat = customUrlInput.value.trim();
+    await browser.storage.sync.set({ customUrlFormat: urlFormat });
+  });
+});

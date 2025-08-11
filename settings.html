@@ -1,0 +1,16 @@
+<script src="settings.js"></script>
+
+<body>
+    <h1>Settings</h1>
+    <p>$$$ will be the URL=encoded message-id header of the email, including its leading and trailing angle brackets</p>
+    <p>default URL for macOS calendar = </p>
+    <p>message:$$$</p>
+    <p>URL format for gmail search = </p>
+    <p>https://mail.google.com/mail/#search/in%3Aanywhere+rfc822msgid%3A$$$</p>
+    <form id="settingsForm">
+        <label for="customUrlFormat">Custom URL Format:</label>
+        <input type="text" id="customUrlFormat" name="customUrlFormat"
+            placeholder="e.g., https://mail.google.com/mail/#search/in%3Aanywhere+rfc822msgid%3A$$$" />
+        <button type="submit">Save</button>
+    </form>
+</body>
