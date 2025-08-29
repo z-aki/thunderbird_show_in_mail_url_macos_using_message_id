@@ -10,31 +10,48 @@ async function getMessageId() {
   return encoded;
 }
 
-async function copyToClipboard(text) {
+async function copy(text) {
   await navigator.clipboard.writeText(text);
+}
+
+function setBadge(text, color, time) {
+  setTimeout(() => {
+    messenger.messageDisplayAction.setBadgeText({ text: text });
+    messenger.messageDisplayAction.setBadgeBackgroundColor({ color: color });
+  }, time);
 }
 
 (async () => {
   console.log("Generating message URL");
   try {
     const msgId = await getMessageId();
-    // Load custom URL format from storage
-    const data = await browser.storage.sync.get("customUrlFormat");
-    let urlFormat = data.customUrlFormat || "message:$$$";
+
+    const settings = await browser.storage.sync.get();
+    let urlFormat = settings.customUrlFormat || "message:$$$";
     const url = urlFormat.replace(/\$\$\$/g, msgId);
-    await copyToClipboard(url);
-    outcome.textContent = `${url}`;
-    outcome.href = url;
-    messenger.messageDisplayAction.setBadgeText({ text: "✓" });
-    messenger.messageDisplayAction.setBadgeBackgroundColor({ color: "#00ff00" });
+    if (settings.copyToClipboard) {
+      await copy(url);
+    }
+    const a = document.createElement("a");
+    a.textContent = url;
+    a.href = url;
+    outcome.appendChild(a);
+
+    setBadge("✓", "#009900", 1);
   } catch (e) {
-    console.error("Failed to convert or copy to clipboard:", e);
-    messenger.messageDisplayAction.setBadgeText({ text: "!!" });
-    messenger.messageDisplayAction.setBadgeBackgroundColor({ color: "#ff0000" });
+    console.error(
+      "Failed to convert or copy to clipboard. See console. Error:",
+      e
+    );
+    outcome.appendChild(
+      document.createTextNode(
+        `Failed to convert or copy to clipboard. See console. Error: ${e}`
+      )
+    );
+    outcome.appendChild(document.createElement("br"));
+
+    setBadge("!!", "#990000", 1);
   } finally {
-    setTimeout(() => {
-      messenger.messageDisplayAction.setBadgeText({ text: "" });
-      messenger.messageDisplayAction.setBadgeBackgroundColor({ color: null });
-    }, 200);
+    setBadge("", null, 600);
   }
 })();
