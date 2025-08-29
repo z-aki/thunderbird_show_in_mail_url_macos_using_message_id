@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Show in Mail URL for macOS Calendar",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Provides the 'Show in Mail' URL to be added in an iOS/macOS Calendar event referering to the message ID. Can also be customized for gmail URLs using the custom URL format in the extension preferences.",
   "author": "z-aki",
   "message_display_action": {
