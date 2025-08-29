@@ -7,4 +7,6 @@ zip -j message_id_url.zip \
     popup.js \
     settings.html \
     settings.js \
+    img_popup.jpg \
+    img_settings.jpg \
     README.md
